@@ -1,2 +1,131 @@
 # react-native-ytsr
-Anonymous YouTube playlist resolver for React native
+[![NPM version](https://img.shields.io/npm/v/react-native-ytsr.svg?maxAge=3600)](https://www.npmjs.com/package/react-native-ytsr)
+[![NPM downloads](https://img.shields.io/npm/dt/react-native-ytsr.svg?maxAge=3600)](https://www.npmjs.com/package/react-native-ytsr)
+[![codecov](https://codecov.io/gh/shaharbrandman/react-native-ytsr/branch/master/graph/badge.svg)](https://codecov.io/gh/timeforaninja/react-native-ytsr)
+[![Known Vulnerabilities](https://snyk.io/test/github/shaharbrandman/react-native-ytsr/badge.svg)](https://snyk.io/test/github/timeforaninja/react-native-ytsr)
+[![Discord](https://img.shields.io/discord/484464227067887645.svg)](https://discord.gg/V3vSCs7)
+
+# this is a fork & port to react native of [TimeForANinja/node-ytsr](https://github.com/TimeForANinja/node-ytsr)
+
+Simple js only package to search for Youtube for Videos, Playlists and many more.
+Does not require any login or Google-API-Key.
+
+# Support
+You can contact us for support on our [chat server](https://discord.gg/V3vSCs7)
+
+# Usage
+
+```js
+import ytsr from 'react-native-ytsr'
+import util from 'util'
+
+await ytsr('TimeForNinjaIsAwesome')
+console.log(util.inspect(ytsr, { depth: Infinity } )
+```
+
+
+# API
+### ytsr(searchString, [options])
+
+Searches for the given string
+
+* `searchString`
+    * search string or url (from getFilters) to search from
+* `options`
+    * object with options
+    * possible settings:
+    * gl[String] -> 2-Digit Code of a Country, defaults to `US` - Allows for localisation of the request
+    * hl[String] -> 2-Digit Code for a Language, defaults to `en` - Allows for localisation of the request
+    * safeSearch[Boolean] -> pull items in youtube restriction mode.
+    * limit[integer] -> limits the pulled items, defaults to 100, set to Infinity to get the whole list of search results - numbers <1 result in the default being used
+    * pages[Number] -> limits the pulled pages, pages contain 20-30 items, set to Infinity to get the whole list of search results - numbers <1 result in the default limit being used - overwrites limit
+    * requestOptions[Object] -> Additional parameters to passed to [miniget](https://github.com/fent/node-miniget), which is used to do the https requests
+
+* returns a Promise
+* [Example response](https://github.com/timeforaninja/node-ytsr/blob/master/example/example_search_output.txt)
+
+
+### ytsr.getFilters(searchString, options)
+
+Pulls avaible filters for the given string or link
+
+#### Usage
+
+```js
+import ytsr from 'react-native-ytsr'
+import util from 'util'
+
+const filters1 = await ytsr.getFilters('github');
+const filter1 = filters1.get('Type').get('Video');
+const filters2 = await ytsr.getFilters(filter1.url);
+const filter2 = filters2.get('Features').get('Live');
+const options = {
+  pages: 2,
+}
+const searchResults = await ytsr(filter2.url, options);
+
+console.log(util.inspect(searchResults, { depth: Infinity } )
+```
+
+* `searchString`
+    * string to search for
+    * or previously optained filter ref
+* `options`
+    * gl[String] -> 2-Digit Code of a Country, defaults to `US` - Allows for localisation of the request
+    * hl[String] -> 2-Digit Code for a Language, defaults to `en` - Allows for localisation of the request
+    * requestOptions[Object] -> Additional parameters to passed to [miniget](https://github.com/fent/node-miniget), which is used to do the https requests
+* returns a Promise resulting in a `Map<String, Map<String, Filter>>`
+* [Example response](https://github.com/timeforaninja/node-ytsr/blob/master/example/example_filters_output.txt)
+
+### ytsr.continueReq(continuationData)
+Continues a previous request by pulling yet another page.  
+The previous request had to be done using `pages` limitation.
+
+#### Usage
+```js
+import ytsr from 'react-native-ytsr'
+import util from 'util'
+
+const search = await ytsr('github', { pages: 1 });
+console.log(util.inspect(search.items, { depth: Infinity } )
+
+const r2 = ytsr.continueReq(search.continuation);
+console.log(util.inspect(r2.items, { depth: Infinity } )
+
+const r3 = ytsr.continueReq(r2.continuation);
+console.log(util.inspect(r3.items, { depth: Infinity } )
+```
+
+* returns a Promise resolving into `{ continuation, items }`
+
+# Related / Works well with
+
+* [node-ytdl-core](https://github.com/fent/node-ytdl-core)
+* [node-ytpl](https://github.com/TimeForANinja/node-ytpl)
+
+
+# Install
+
+    npm install --save react-native-ytsr
+    
+  {project}/index.js
+  ```js
+    import 'node-libs-react-native/globals'
+    
+    import {AppRegistry} from 'react-native';
+    import App from './App';
+    import {name as appName} from './app.json';
+
+    AppRegistry.registerComponent(appName, () => App);
+  ```
+  
+  {project}/metro.config.js
+  ```js
+    module.exports = {
+      resolver: {
+        extraNodeModules: require('node-libs-react-native')
+      }
+    };
+  ```
+# License
+MIT
