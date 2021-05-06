@@ -7,7 +7,7 @@
 
 # this is a fork & port to react native of [TimeForANinja/node-ytsr](https://github.com/TimeForANinja/node-ytsr)
 
-Simple js only package to search for Youtube for Videos, Playlists and many more.
+Simple react native package to search for Youtube for Videos, Playlists and many more.
 Does not require any login or Google-API-Key.
 
 # Support
