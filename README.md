@@ -1,7 +1,6 @@
 # react-native-ytsr
 [![NPM version](https://img.shields.io/npm/v/react-native-ytsr.svg?maxAge=3600)](https://www.npmjs.com/package/react-native-ytsr)
 [![NPM downloads](https://img.shields.io/npm/dt/react-native-ytsr.svg?maxAge=3600)](https://www.npmjs.com/package/react-native-ytsr)
-[![codecov](https://codecov.io/gh/shaharbrandman/react-native-ytsr/branch/master/graph/badge.svg)](https://codecov.io/gh/timeforaninja/react-native-ytsr)
 [![Known Vulnerabilities](https://snyk.io/test/github/shaharbrandman/react-native-ytsr/badge.svg)](https://snyk.io/test/github/timeforaninja/react-native-ytsr)
 [![Discord](https://img.shields.io/discord/484464227067887645.svg)](https://discord.gg/V3vSCs7)
 
