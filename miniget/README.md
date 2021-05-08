@@ -1,1 +1,0 @@
-# This is just a fork & port of [fent/node-miniget](https://github.com/fent/node-miniget)
