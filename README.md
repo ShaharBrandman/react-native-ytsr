@@ -18,8 +18,8 @@ You can contact us for support on our [chat server](https://discord.gg/V3vSCs7)
 import ytsr from 'react-native-ytsr'
 import util from 'util'
 
-await ytsr('TimeForNinjaIsAwesome')
-console.log(util.inspect(ytsr, { depth: Infinity } )
+const search = await ytsr('TimeForNinjaIsAwesome')
+console.log(util.inspect(search, { depth: Infinity } )
 ```
 
 
@@ -106,25 +106,6 @@ console.log(util.inspect(r3.items, { depth: Infinity } )
 # Install
 
     npm install --save react-native-ytsr
-    
-  {project}/index.js
-  ```js
-    import 'node-libs-react-native/globals'
-    
-    import {AppRegistry} from 'react-native';
-    import App from './App';
-    import {name as appName} from './app.json';
-
-    AppRegistry.registerComponent(appName, () => App);
-  ```
-  
-  {project}/metro.config.js
-  ```js
-    module.exports = {
-      resolver: {
-        extraNodeModules: require('node-libs-react-native')
-      }
-    };
-  ```
+      
 # License
 MIT
