@@ -16,10 +16,9 @@ You can contact us for support on our [chat server](https://discord.gg/V3vSCs7)
 
 ```js
 import ytsr from 'react-native-ytsr'
-import util from 'util'
 
 const search = await ytsr('TimeForNinjaIsAwesome')
-console.log(util.inspect(search, { depth: Infinity } )
+console.log(search)
 ```
 
 
@@ -38,7 +37,7 @@ Searches for the given string
     * safeSearch[Boolean] -> pull items in youtube restriction mode.
     * limit[integer] -> limits the pulled items, defaults to 100, set to Infinity to get the whole list of search results - numbers <1 result in the default being used
     * pages[Number] -> limits the pulled pages, pages contain 20-30 items, set to Infinity to get the whole list of search results - numbers <1 result in the default limit being used - overwrites limit
-    * requestOptions[Object] -> Additional parameters to passed to [miniget](https://github.com/fent/node-miniget), which is used to do the https requests
+    * requestOptions[Object] -> Additional parameters to passed to [miniget](https://github.com/ShaharBrandman/react-native-ytsr/blob/main/lib/miniget.js), which is used to do the https requests
 
 * returns a Promise
 * [Example response](https://github.com/timeforaninja/node-ytsr/blob/master/example/example_search_output.txt)
@@ -52,7 +51,6 @@ Pulls avaible filters for the given string or link
 
 ```js
 import ytsr from 'react-native-ytsr'
-import util from 'util'
 
 const filters1 = await ytsr.getFilters('github');
 const filter1 = filters1.get('Type').get('Video');
@@ -63,7 +61,7 @@ const options = {
 }
 const searchResults = await ytsr(filter2.url, options);
 
-console.log(util.inspect(searchResults, { depth: Infinity } )
+console.log(searchResults)
 ```
 
 * `searchString`
@@ -72,7 +70,7 @@ console.log(util.inspect(searchResults, { depth: Infinity } )
 * `options`
     * gl[String] -> 2-Digit Code of a Country, defaults to `US` - Allows for localisation of the request
     * hl[String] -> 2-Digit Code for a Language, defaults to `en` - Allows for localisation of the request
-    * requestOptions[Object] -> Additional parameters to passed to [miniget](https://github.com/fent/node-miniget), which is used to do the https requests
+    * requestOptions[Object] -> Additional parameters to passed to [miniget](https://github.com/ShaharBrandman/react-native-ytsr/blob/main/lib/miniget.js), which is used to do the https requests
 * returns a Promise resulting in a `Map<String, Map<String, Filter>>`
 * [Example response](https://github.com/timeforaninja/node-ytsr/blob/master/example/example_filters_output.txt)
 
@@ -83,16 +81,15 @@ The previous request had to be done using `pages` limitation.
 #### Usage
 ```js
 import ytsr from 'react-native-ytsr'
-import util from 'util'
 
 const search = await ytsr('github', { pages: 1 });
-console.log(util.inspect(search.items, { depth: Infinity } )
+console.log(search)
 
 const r2 = ytsr.continueReq(search.continuation);
-console.log(util.inspect(r2.items, { depth: Infinity } )
+console.log(r2.items)
 
 const r3 = ytsr.continueReq(r2.continuation);
-console.log(util.inspect(r3.items, { depth: Infinity } )
+console.log(r3.items)
 ```
 
 * returns a Promise resolving into `{ continuation, items }`
